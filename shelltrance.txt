@@ -1,0 +1,39 @@
+#!/bin/bash
+# fablab shelltrance 2009
+# kanzure@gmail.com
+
+fablab.py startproject washingmachine
+python manage.py listbom > washingmachine.bom
+#brlcad/heekscad voodoo magic here
+python manage.py add-dependency "metal-bending"
+agx-package new -o washingmachine.skdb washingmachine
+
+agx-get washingmachine.skdb
+cd /hardware/washingmachine/
+./configure
+make instructable
+make install
+reqtools washingmachine.skdb > TOOLS
+if [test -n `difftool --base=/etc/fablab/inventory TOOLS`] then
+	cat washingmachine.bom > /dev/checkout
+
+mkbin toys
+
+
+## diybio protocols
+mkdir ~/diybio/projects/
+cd ~/diybio/projects/
+wget http://heybryan.org/~bbishop/docs/protocols/pcr.xml
+consumables pcr.xml > CONSUMABLES
+reqtools pcr.xml > TOOLS
+if [test -n `difftool --base=/etc/fablab/inventory TOOLS`] then
+	cat CONSUMABLES > /dev/checkout ;
+else 
+	difftool --base=/etc/fablab/inventory TOOLS > ORDER-REQUEST
+	cat ORDER-REQUEST | mail -s "Tool discrepancy alert" root@fablab
+	echo "Your tools will arrive shortly. Perhaps you would like to build them yourself?"
+fi
+
+
+# DEBIAN PACKAGE SINGULARITY
+# estimated 100,000 packages by 2006
