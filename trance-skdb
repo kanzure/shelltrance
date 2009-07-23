@@ -1,11 +1,5 @@
-#!/bin/bash
-
-#get a screw
-skdb-get screw
-skdb-make-instructions screw > screw.instructions
-##skdb-get runs skdb-schedule-job
-
-echo "
+#!/usr/bin/python
+""
 >>> import skdb
 >>> import skdb.parts
 >>> import yaml
@@ -29,4 +23,4 @@ yes they are compatible
 <skdb.Assembly.Maker.Step>
 >>> print step
 '''Take &obj1 and apply it to &obj2.'''
-" >> test.py
+"""
