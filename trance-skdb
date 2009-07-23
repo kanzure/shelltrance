@@ -1,0 +1,32 @@
+#!/bin/bash
+
+#get a screw
+skdb-get screw
+skdb-make-instructions screw > screw.instructions
+##skdb-get runs skdb-schedule-job
+
+echo "
+>>> import skdb
+>>> import skdb.parts
+>>> import yaml
+>>> generic_screw = skdb.parts.screw()
+>>> generic_bearing = skdb.parts.bearing()
+>>> skdb.compatibility(generic_screw, generic_bearing)
+yes they are compatible
+>>> assembly = skdb.connect(generic_screw, generic_bearing)
+<skdb.Assembly at 0x200a6a2c>
+>>> save_state = assembly.dump(dump_parts=False) #don't dump part definitions
+>>> f = open('save_state.skdb','w')
+>>> f.write(save_state)
+>>> f.close()
+>>> maker = assembly.make()
+>>> print type(maker)
+<skdb.Assembly.Maker>
+>>> maker.next()
+<iterator>
+>>> second_step = maker.current()
+>>> print type(second_step)
+<skdb.Assembly.Maker.Step>
+>>> print step
+'''Take &obj1 and apply it to &obj2.'''
+" >> test.py
