@@ -19,7 +19,7 @@ yes they are compatible
 >>> f = open('save_state.skdb','w')
 >>> f.write(save_state)
 >>> f.close()
->>> maker = assembly.make()
+>>> maker = assembly.make(format="human")
 >>> print type(maker)
 <skdb.Assembly.Maker>
 >>> maker.next()
