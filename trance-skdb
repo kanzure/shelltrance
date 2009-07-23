@@ -1,5 +1,3 @@
-#!/usr/bin/python
-""
 >>> import skdb
 >>> import skdb.parts
 >>> import yaml
@@ -23,4 +21,3 @@ yes they are compatible
 <skdb.Assembly.Maker.Step>
 >>> print step
 '''Take &obj1 and apply it to &obj2.'''
-"""
